@@ -1,6 +1,6 @@
 # JavaNpy
 
-Load NumPy array files in Java
+Load NumPy array files in Java, inspered by [SwiftNpy](https://github.com/qoncept/swift-npy).
 
 ```java
 String path = "resources/sample.npy";
