@@ -1,7 +1,5 @@
 # JavaNpy
 
-# JavaNpy
-
 Load NumPy array files in Java
 
 ```java
