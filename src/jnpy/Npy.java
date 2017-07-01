@@ -97,7 +97,7 @@ public class Npy {
 		int[] elements = new int[data.length / 2];
 		
 		for (int i = 0; i < elements.length; i++) {
-			elements[i] = wrapped.getShort();
+			elements[i] = wrapped.getShort() & 0xffff;
 		}
 		
 		return elements;
