@@ -17,10 +17,11 @@ public class NpyHeader {
 		
 		String[] arr = shapeString.split(",");
 		
-		int m = Integer.parseInt(arr[0]);
-		int n = Integer.parseInt(arr[1]);
+		int[] result = new int[arr.length];
+		for (int i = 0; i < arr.length; i++)
+			result[i] = Integer.parseInt(arr[i]);
 		
-		return new int[]{m, n};
+		return result;
 	}
 	
 	public static NpyHeader getNpyHeader(byte[] data) {
