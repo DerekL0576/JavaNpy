@@ -88,7 +88,18 @@ public class Npy {
 		return elements;
 	}
 	
-	
+	public double[] doubleElements() {
+		ByteBuffer wrapped = ByteBuffer.wrap(data);
+		wrapped.order(this.getEndian() == Endian.little ? ByteOrder.LITTLE_ENDIAN : ByteOrder.BIG_ENDIAN);
+		
+		double[] elements = new double[data.length / 8];
+		
+		for (int i = 0; i < elements.length; i++) {
+			elements[i] = wrapped.getDouble();
+		}
+		
+		return elements;
+	}
 	
 	public int[] uint16Elements() {
 		ByteBuffer wrapped = ByteBuffer.wrap(data);

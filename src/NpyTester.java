@@ -4,13 +4,13 @@ public class NpyTester {
 
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-		String path = "resources/sample.npy";
+		String path = "resources/donald_trump.model.concat.npy";
 		
 		Npy npy = new Npy(path);
 
-		float[] sampleData = npy.floatElements();
+		double[] sampleData = npy.doubleElements();
 		
-		for (float f : sampleData) {
+		for (double f : sampleData) {
 			System.out.println(f);
 		}
 	}
