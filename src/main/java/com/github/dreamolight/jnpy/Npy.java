@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
@@ -11,55 +12,65 @@ public class Npy {
 	private byte[] data = null;
 	private NpyHeader header;
 		
-	public Npy(String path) throws FileNotFoundException, IOException {
+	public Npy(String path) throws IOException {
 		File f = new File(path);
 		FileInputStream fis = new FileInputStream(f);
-		DataInputStream dataIs = new DataInputStream(fis);
-		byte[] allData = new byte[(int)f.length()];
+		process(fis);
+	}
+
+	public Npy(InputStream inputStream) throws IOException {
+		process(inputStream);
+	}
+
+	private void process(InputStream inputStream) throws IOException {
+		int length = inputStream.available();
+
+		DataInputStream dataIs = new DataInputStream(inputStream);
+		byte[] allData = new byte[length];
 		dataIs.readFully(allData);
 		dataIs.close();
 		String magic = new String(allData, 1, 5);
 		if (!magic.equals("NUMPY") || (allData[0] & 0xFF) != 0x93) {
 			throw new IOException("Invalid prefix");
 		}
-		
+
 		int major = allData[6];
 		int minor = allData[7];
-		
+
 		if (major != 1 && major != 2) {
 			throw new IOException("Invalid jaor version: " + major);
 		}
-		
+
 		if (minor != 0)
 			throw new IOException("Invalid minor version: " + minor);
-		
+
 		int headerLen;
 		int offset;
 		if (1 == major) {
 			byte[] arr = {allData[8], allData[9]};
 			ByteBuffer wrapped = ByteBuffer.wrap(arr);
 			wrapped.order(ByteOrder.LITTLE_ENDIAN);
-			
+
 			headerLen = wrapped.getShort();
-			
+
 			offset = 10;
 		} else {
 			byte[] arr = {allData[8], allData[9], allData[10], allData[11]};
 			ByteBuffer wrapped = ByteBuffer.wrap(arr);
 			wrapped.order(ByteOrder.LITTLE_ENDIAN);
-			
+
 			headerLen = wrapped.getInt();
-			
+
 			offset = 12;
 		}
-		int dataLen = (int)f.length() - offset - headerLen;
+		int dataLen = length - offset - headerLen;
 
 		byte[] headerData = new byte[headerLen];
 		data = new byte[dataLen];
-		
+
 		System.arraycopy(allData, offset, headerData, 0, headerLen);
 		System.arraycopy(allData, offset + headerLen, data, 0, dataLen);
-		
+
 		header = NpyHeader.getNpyHeader(headerData);
 	}
 	
