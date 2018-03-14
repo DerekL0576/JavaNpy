@@ -1,4 +1,4 @@
-package jnpy;
+package com.github.dreamolight.jnpy;
 
 enum Endian {
 	host {

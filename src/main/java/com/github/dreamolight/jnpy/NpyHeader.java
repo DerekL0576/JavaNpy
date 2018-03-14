@@ -1,4 +1,4 @@
-package jnpy;
+package com.github.dreamolight.jnpy;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;

@@ -1,4 +1,4 @@
-package jnpy;
+package com.github.dreamolight.jnpy;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
