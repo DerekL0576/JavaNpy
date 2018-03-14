@@ -26,9 +26,9 @@ public class NpyHeader {
 	
 	public static NpyHeader getNpyHeader(byte[] data) {
 		String str = new String(data);
-		str = str.replaceAll(", }", "}");
+		str = str.replaceAll(", \\}", "\\}");
 		str = str.replace(": (", ": '(");
-		str = str.replace(")}", ")'}");
+		str = str.replace(")\\}", ")'\\}");
 		
 		JsonParser jsonParser = new JsonParser();
 		JsonElement element = jsonParser.parse(str);
