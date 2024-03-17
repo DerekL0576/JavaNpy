@@ -1,33 +1,6 @@
 package com.github.dreamolight.jnpy;
 
-enum Endian {
-	host {
-		@Override
-		public String toString() {
-			return "=";
-		}
-	},
-	big {
-		@Override
-		public String toString() {
-			return ">";
-		}
-	},
-	little {
-		@Override
-		public String toString() {
-			return "<";
-		}
-	},
-	na {
-		@Override
-		public String toString() {
-			return "|";
-		}
-	}
-}
-
-enum DataType {
+public enum DataType {
 	bool {
 		@Override
 		public String toString() {
