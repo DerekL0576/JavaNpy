@@ -14,7 +14,7 @@ int[] samepleData = npy.uint16Elements();
 DataType dt = npy.getDataType();
 ```
 
-## Suppoted format
+## Supported format
 `npy` files.
 
 ### Bool
